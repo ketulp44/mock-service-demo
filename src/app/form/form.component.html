@@ -1,0 +1,60 @@
+<div class="fContainer">
+    <h2>Student Form</h2>
+    <br>
+    <div class="formCont">
+        <form class=" needs-validation" id="profileForm" [formGroup]="profileForm" novalidate>
+            <div class="wrapper">
+                <div class=" wrapper ">
+                    <label for="validationTooltip01">Enrollment No</label>
+                    <input type="text" class="form-control" formControlName="enrollno" class="form-control" id="validationTooltip01" placeholder=" Enrollment No">
+                    <div *ngIf="enrollno.touched && enrollno.invalid" class="alert alert-danger">
+                        please enter 10 digit enroll no
+                    </div>
+                </div>
+                <div class="wrapper ">
+                    <label for="validationTooltip02">Name</label>
+                    <input type="text" class="form-control" id="validationTooltip02" placeholder="Name" formControlName="name">
+                    <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                        Name should not have space
+                    </div>
+                </div>
+                <div class="wrapper ">
+                    <label for="validationTooltipUsername">Email</label>
+                    <div class="input-group">
+                        <input type="text" class=" form-control" id="validationTooltipUsername" formControlName="email" placeholder="Email" aria-describedby="validationTooltipUsernamePrepend">
+                        <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+                            Please enter valid email
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="margin-top: 30px;" routerLink="/registered" (click)="onSubmit()" [disabled]="!profileForm.valid " type="submit">Submit form</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- <form id="profileForm" [formGroup]="profileForm">
+
+    <label>
+        Enrollment No:
+        <input type="number" class="col-sm-2 col-form-label" formControlName="enrollno" required />
+        <span *ngIf="enrollno.touched && enrollno.invalid">Invalid enroll no</span>
+
+    </label>
+    <label>
+      Name:
+      <input type="text" class="col-sm-2 col-form-label" formControlName="name" required/>
+      <span *ngIf="name.touched && name.invalid">invalid name </span>
+    </label>
+    <label>
+        Email :
+        <input type="text" class="col-sm-2 col-form-label" formControlName="email" required>
+        <span *ngIf="email.touched && email.invalid">invalid email</span>
+    </label>
+    <button type="submit" routerLink="/registered" (click)="onSubmit()" [disabled]="!profileForm.valid ">Register</button>
+    <p>
+        Form Status: {{ profileForm.status }}
+    </p>
+</form> -->

@@ -1,0 +1,46 @@
+input {
+    margin: 5px;
+    padding: 5px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+label {
+    margin: 5px;
+    padding: 5px;
+    width: 90px;
+}
+
+button {
+    border: 0vmax;
+    background-color: cadetblue;
+    margin: 5px;
+    padding: 5px;
+    width: 125px;
+    text-align: center;
+}
+
+.addBtn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.dForm {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+tbody {
+    width: 100%;
+}

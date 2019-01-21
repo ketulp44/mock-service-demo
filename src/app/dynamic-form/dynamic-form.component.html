@@ -1,0 +1,28 @@
+<form [formGroup]="form" >
+  <div class="form-row align-items-center">
+    <div class="col-md-4 mb-3">
+      <label for="validationServer01">Enrollment NO</label>
+      <input formControlName="enrollment" type="text" class="form-control is-valid" id="validationServer01" placeholder="Enrollment No"  required>
+      <div *ngIf="enrollment.touched && enrollment.invalid" class="alert alert-danger">
+        please enter valid enrollment No
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationServer02">Name</label>
+      <input type="text" formControlName="name" class="form-control is-valid" id="validationServer02" placeholder="Name"  required>
+      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+        Please enter valid name
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationServerUsername">E-mail</label>
+      <div class="input-group">
+        <input formControlName="email" type="text" class="form-control is-valid" id="validationServerUsername" placeholder="E-mail" aria-describedby="inputGroupPrepend3" required>
+        <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+          please enter valid email
+        </div>
+      </div>
+    </div>
+  <button class="btn btn-primary" (click)="onClick()" type="button"  routerLink="/registered" [disabled]="!form.valid">Submit form</button>
+  </div>
+</form>
