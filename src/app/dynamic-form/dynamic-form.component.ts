@@ -16,7 +16,7 @@ export class DynamicFormComponent implements OnInit {
   @Output() added = new EventEmitter<boolean>();
   constructor(private mockServices: MockServiceService) {}
     form = new FormGroup({
-      enrollment: new FormControl('', [ Validators.required, Validators.pattern('^[0-9]{10}$')]),
+      enrollment: new FormControl('', [ Validators.required, Validators.pattern('^[0-9]+$')]),
       name: new FormControl('', [ Validators.required, Validators.pattern( '^[a-zA-Z][a-zA-Z-_\.]{1,20}$')]) ,
       email: new FormControl('', [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')])
     });

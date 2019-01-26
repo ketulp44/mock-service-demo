@@ -26,5 +26,10 @@ export class MockServiceService {
   getStudents(): Observable<Student[]> {
      return of(this.registeredStudents);
   }
+  isEnrollmentUnique(enrollment: number): boolean {
+    const isunique = this.registeredStudents.filter( (student) =>  student.enNo === enrollment );
+    // console.log(isunique.length === 0);
+    return true ;
+  }
   constructor() { }
 }

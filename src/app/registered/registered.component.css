@@ -14,20 +14,23 @@ h2 {
     font-weight: bold;
 }
 
+button {
+    background: none;
+    border: none;
+}
+
 label {
     margin: 5px;
     padding: 5px;
     width: 90px;
 }
 
-button {
-    border: 0vmax;
-    background-color: cadetblue;
+
+/* button {
     margin: 5px;
     padding: 5px;
-    width: 125px;
     text-align: center;
-}
+} */
 
 .addBtn {
     width: 100%;

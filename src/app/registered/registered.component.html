@@ -1,7 +1,8 @@
-<h2>My Students</h2>
+<h2>
+    My Students</h2>
 <nav class="navbar">
 
-    <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+    <input type="text" name="search" [(ngModel)]="filter">
 
 </nav>
 <form [formGroup]="form">
@@ -16,57 +17,67 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let student of students | filter: filter | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p } ; let i=index" [attr.data-index]="i">
+            <tr *ngFor="let student of students | orderBy: key : reverse | filter : filter | paginate: { itemsPerPage: 5, currentPage: p } ; let i=index" [attr.data-index]="i">
 
                 <td scope="row">
                     <input formControlName="enrollment" [value]="student.enNo" *ngIf="update[i] ; else elseEn " id="en_no " placeholder="enrollment no " />
                     <ng-template #elseEn><span>{{student.enNo}}</span></ng-template>
-                    <div *ngIf="enrollment.touched && enrollment.invalid && update[i]" class="alert alert-danger">
+                    <div *ngIf="form != undefined && enrollment.touched && enrollment.invalid && update[i]" class="alert alert-danger">
                         please enter valid enrollment No
                     </div>
+                    <div *ngIf="form !=undefined  && enrollment.touched && enrollment.invalid">enrollment no already exists</div>
                 </td>
                 <td scope="row ">
                     <input formControlName="name" [value]="student.name" *ngIf="update[i] ; else elseblock " id="name " placeholder="name " />
                     <ng-template #elseblock><span>{{student.name}}</span></ng-template>
-                    <div *ngIf="name.touched && name.invalid && update[i]" class="alert alert-danger">
+                    <div *ngIf="form != undefined && name.touched && name.invalid && update[i]" class="alert alert-danger">
                         Please enter valid name
                     </div>
+
                 </td>
                 <td scope="row ">
-                    <input formControlName="email" [value]="student.email" *ngIf="update[i] ; else elseEmail " id="mail_id " placeholder="email " />
+                    <input formControlName="email" [value]="student.email" *ngIf="update[i] ; else elseEmail" id="mail_id" placeholder="email" />
                     <ng-template #elseEmail><span>{{student.email}}</span></ng-template>
-                    <div *ngIf="email.touched && email.invalid " class="alert alert-danger">
+                    <div *ngIf="form != undefined && email.touched && email.invalid && update[i]" class="alert alert-danger">
                         please enter valid email
                     </div>
                 </td>
 
-                <td scope="row "><button [disabled]="!form.valid && update[i]" (click)="onClickUpdate(i)">update</button></td>
-                <td scope="row ">
-                    <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" *ngIf="update[i]===true ; else elseDelete" [disabled]="true">delete</button>
-                    <ng-template #elseDelete>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="onClickDelete(student)" >
-                            Delete
-                        </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                <td scope="row">
+                    <button [hidden]="update[i]" type="button" (click)="onClickUpdate(i)"><i class="fa fa-edit"></i></button>
+                    <button [hidden]="!update[i]" type="button" (click)="onClickSave(i)" [disabled]="form != undefined && !form.valid"><i class="fa fa-save"></i></button>
+
+                </td>
+
+                <td scope="row">
+
+                    <button [hidden]="!update[i]" type="button" (click)="onClickCancel(i)"><i class="fa fa-close"></i></button>
+                    <button type="button" data-toggle="modal" type="button" (click)="onClickDelete(student)" data-target="#myModal" [hidden]="update[i]"><i class="fa fa-trash"></i></button>
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Delete</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Are you sure want to delete?
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onClkDelete()">Confirm</button>
+                                </div>
+
+                            </div> by another repository pushing hint: to the same ref. You may want to first integrate the remote changes hint: (e.g., 'git pull ...') before pushing again. hint: See the 'Note about fast-forwards' in 'git
                         </div>
-                        <div class="modal-body">
-                          Are you sure want to delete?
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary" (click)="onClkDelete()">Save changes</button>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                    </ng-template>
+
                 </td>
             </tr>
         </tbody>
@@ -77,9 +88,9 @@
 </form>
 
 <div class="addBtn">
-    <button (click)="onclickAdd() " [disabled]="addClicked ">Add</button>
+    <button (click)="onclickAdd()" [disabled]="addClicked">Add</button>
 </div>
 <div class="dForm">
-    <app-dynamic-form [addClicked]="addClicked " *ngIf="addClicked " (added)="onFormSubmission($event) "></app-dynamic-form>
+    <app-dynamic-form [addClicked]="addClicked" *ngIf="addClicked " (added)="onFormSubmission($event)"></app-dynamic-form>
 </div>
-<pagination-controls (pageChange)="p=$event "></pagination-controls>
+<pagination-controls (pageChange)="p=$event"></pagination-controls>
